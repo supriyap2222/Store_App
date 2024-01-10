@@ -4,9 +4,12 @@ from myapp.models import Category
 # Create your models here.
 class Product(models.Model):
     product_name    = models.CharField(max_length=200, unique=True)
+    other_name    = models.CharField(max_length=200, null=True)
     slug            = models.SlugField(max_length=200, unique=True)
     description     = models.TextField(max_length=500, blank=True)
+    mrp             = models.IntegerField(null=True)
     price           = models.IntegerField()
+    cp_code         = models.CharField(max_length=20, null=True)
     image           = models.ImageField(upload_to='photos/product',blank=True)
     stock           = models.IntegerField()
     is_available    = models.BooleanField(default=True)
