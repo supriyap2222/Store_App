@@ -1,5 +1,6 @@
 from django.db import models
 from myapp.models import Category
+from django.urls import reverse
 
 # Create your models here.
 class Product(models.Model):
@@ -16,6 +17,16 @@ class Product(models.Model):
     category        = models.ForeignKey(Category,on_delete=models.CASCADE)
     created_date    = models.DateTimeField(auto_now=True)
     modified_date    = models.DateTimeField(auto_now=True)
+
+    # next line function will help to open particular product in single
+    #  product page when we click product item(from <a> of home.html)
+    def get_url(self):
+        # in next line 'self' means Class Product,category means attribute of Product, and 'slug' is slug of 
+        # category(this is also class in 'myapp' models) which we want to access 
+        return reverse('product_detail', args=[self.category.slug, self.slug])
+    
+
+
 
     def __str__(self):
         return self.product_name

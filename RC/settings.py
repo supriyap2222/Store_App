@@ -54,6 +54,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # down line does, menu_links accessible in any templates , myapp is app name, context_processors is file name, menu_links is functions name
+                'myapp.context_processors.menu_links',
             ],
         },
     },
