@@ -100,11 +100,13 @@
           <h3 class="text-danger">Out of Stock</h3>
 
         {% elif single_product.stock < 5 %}
-          <h6>Hurry Up! Less than 4 left</h6> 
-          <a href="#" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+          <h6>Hurry Up! Only <b>{{single_product.stock}}</b> Left</h6> 
+
+{% comment %} here we are adding path for 'add to cart' with passing product_id {% endcomment %}
+          <a href="{% url 'add_cart' single_product.id %}" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
         
         {% else %}
-          <a href="#" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+          <a href="{% url 'add_cart' single_product.id %}" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
       
         {% endif %}
 
