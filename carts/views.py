@@ -43,7 +43,8 @@ def add_cart(request, product_id):
         # to reduce using - button in cart page
 def remove_cart(request,product_id):
     cart = Cart.objects.get(cart_id=_cart_id(request))
-    product = get_object_or_404(Product, id=product_id)
+    product = Product.objects.get(id=product_id)
+    # product = get_object_or_404(Product, id=product_id)
     cart_item = CartItem.objects.get(product=product, cart=cart)
     if cart_item.quantity > 1:
         cart_item.quantity -= 1
@@ -54,10 +55,11 @@ def remove_cart(request,product_id):
 # this will redirect to cart.html page
 
 
-
+# to delete the product form cart-page
 def remove_cart_item(request,product_id):
     cart = CartItem.objects.get(cart_id=_cart_id(request))
-    product = get_object_or_404(Product, id=product_id)
+    # product = get_object_or_404(Product, id=product_id)
+    product = Product.objects.get(id=product_id)
     cart_item = CartItem.objects.get(cart=cart,product=product)
     cart_item.delete()
     return redirect('cart')
