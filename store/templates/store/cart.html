@@ -7,7 +7,22 @@
 
 <section class="section-content padding-y bg">
     <div class="container">
+<<<<<<< HEAD
     
+=======
+    {% if not cart_items %}
+    
+    {% comment %} some msg {% endcomment %}
+    <h2 class='text-cemter'>Our Cart is Empty</h2>
+    </br>
+    <div class='text-center'>
+        <a href="{% url 'store' %}" class='btn btn-primary'>Continue Shopping</a>
+
+    </div>
+
+    {% else %}
+
+>>>>>>> 20dad98109ff5b1a447ce4de0237ad8326c2126e
     <!-- ============================ COMPONENT 1 ================================= -->
     
     <div class="row">
@@ -23,6 +38,7 @@
     </tr>
     </thead>
     <tbody>
+<<<<<<< HEAD
     <tr>
         
         <td>
@@ -30,6 +46,16 @@
                 <div class="aside"><img src="./images/items/11.jpg" class="img-sm"></div>
                 <figcaption class="info">
                     <a href="#" class="title text-dark">Camera Canon EOS M50 Kit</a>
+=======
+
+{% for cart_item in cart_items %}
+    <tr>
+        <td>
+            <figure class="itemside align-items-center">
+                <div class="aside"><a href='{{ cart_item.product.get_url }}'><img src="{{ cart_item.product.image.url }}" class="img-sm"></a></div>
+                <figcaption class="info">
+                    <a href="{{ cart_item.product.get_url }}" class="title text-dark">{{ cart_item.product.product_name}}</a>
+>>>>>>> 20dad98109ff5b1a447ce4de0237ad8326c2126e
                     <p class="text-muted small">Matrix: 25 Mpx <br> Brand: Canon</p>
                 </figcaption>
             </figure>
@@ -39,17 +65,26 @@
                         <div class="col"> 
                             <div class="input-group input-spinner">
                                 <div class="input-group-prepend">
+<<<<<<< HEAD
                                 <button class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </button>
                                 </div>
                                 <input type="text" class="form-control"  value="1">
                                 <div class="input-group-append">
                                 <button class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </button>
+=======
+                                <a href="{% url 'remove_cart' cart_item.product.id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
+                                </div>
+                                <input type="text" class="form-control"  value="{{cart_item.quantity}}">
+                                <div class="input-group-append">
+                                <a href="{% url 'add_cart' cart_item.product.id %}" class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </a>
+>>>>>>> 20dad98109ff5b1a447ce4de0237ad8326c2126e
                                 </div>
                             </div> <!-- input-group.// -->
                         </div> <!-- col.// -->
         </td>
         <td> 
             <div class="price-wrap"> 
+<<<<<<< HEAD
                 <var class="price">Rs 1156.00</var> 
                 <small class="text-muted"> Rs 315.20 each </small> 
             </div> <!-- price-wrap .// -->
@@ -58,6 +93,18 @@
         <a href="" class="btn btn-danger"> Remove</a>
         </td>
     </tr>
+=======
+                <var class="price">Rs {{ cart_item.sub_total }}</var> 
+                <small class="text-muted"> Rs {{ cart_item.product.price }} each </small> 
+            </div> <!-- price-wrap .// -->
+        </td>
+        <td class="text-right"> 
+        <a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-danger"> Remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+>>>>>>> 20dad98109ff5b1a447ce4de0237ad8326c2126e
     </tbody>
     </table>
     </div> <!-- card.// -->
@@ -69,6 +116,7 @@
             <div class="card-body">
                 <dl class="dlist-align">
                   <dt>Total price:</dt>
+<<<<<<< HEAD
                   <dd class="text-right">Rs 69.97</dd>
                 </dl>
                 <dl class="dlist-align">
@@ -78,19 +126,45 @@
                 <dl class="dlist-align">
                   <dt>Total:</dt>
                   <dd class="text-right text-dark b"><strong>Rs 59.97</strong></dd>
+=======
+                  <dd class="text-right">Rs {{total}}</dd>
+                </dl>
+                <dl class="dlist-align">
+                  <dt>Tax:</dt>
+                  {% comment %} <dd class="text-right"> Rs {{tax}}</dd> {% endcomment %}
+                  <dd class="text-right"> Included</dd>
+                </dl>
+                <dl class="dlist-align">
+                    <dt>Delivery:</dt>
+                    {% comment %} <dd class="text-right"> Rs 100</dd> {% endcomment %}
+                    <dd class="text-right"> {{delivery}}</dd>
+                  </dl>
+                <dl class="dlist-align">
+                  <dt>Total:</dt>
+                  {% comment %} <dd class="text-right text-dark b"><strong>Rs {{grand_total}}</strong></dd> {% endcomment %}
+                  <dd class="text-right text-dark b"><strong>Rs {{grand_total}}</strong></dd>
+>>>>>>> 20dad98109ff5b1a447ce4de0237ad8326c2126e
                 </dl>
                 <hr>
                 <p class="text-center mb-3">
                     <img src="{% static './images/misc/payments.png'%}" height="26">
                 </p>
                 <a href="./place-order.html" class="btn btn-primary btn-block"> Checkout </a>
+<<<<<<< HEAD
                 <a href="./store.html" class="btn btn-light btn-block">Continue Shopping</a>
+=======
+                <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+>>>>>>> 20dad98109ff5b1a447ce4de0237ad8326c2126e
             </div> <!-- card-body.// -->
             </div> <!-- card.// -->
     
     </aside> <!-- col.// -->
     
+<<<<<<< HEAD
     
+=======
+{% endif %}
+>>>>>>> 20dad98109ff5b1a447ce4de0237ad8326c2126e
     </div> <!-- row.// -->
     <!-- ============================ COMPONENT 1 END .// ================================= -->
     

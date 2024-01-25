@@ -25,8 +25,11 @@ class Product(models.Model):
         # category(this is also class in 'myapp' models) which we want to access 
         return reverse('product_detail', args=[self.category.slug, self.slug])
     
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 20dad98109ff5b1a447ce4de0237ad8326c2126e
     def __str__(self):
         return self.product_name
