@@ -13,7 +13,7 @@ def _cart_id(request):
 
 def add_cart(request, product_id):
     product     = Product.objects.get(id=product_id)  #get the product // product_id = single_product.id from product_detail.html page
-    
+    print('product id', product_id)
     try:
         #we can add without login with help of session key 
         #session key is used as cart_id
@@ -42,8 +42,11 @@ def add_cart(request, product_id):
         
         # to reduce using - button in cart page
 def remove_cart(request,product_id):
+
     cart = Cart.objects.get(cart_id=_cart_id(request))
     product = Product.objects.get(id=product_id)
+    print('product id', product_id)
+
     # product = get_object_or_404(Product, id=product_id)
     cart_item = CartItem.objects.get(product=product, cart=cart)
     if cart_item.quantity > 1:
@@ -57,10 +60,12 @@ def remove_cart(request,product_id):
 
 # to delete the product form cart-page
 def remove_cart_item(request,product_id):
-    cart = CartItem.objects.get(cart_id=_cart_id(request))
+    cart = Cart.objects.get(cart_id=_cart_id(request))
     # product = get_object_or_404(Product, id=product_id)
     product = Product.objects.get(id=product_id)
     cart_item = CartItem.objects.get(cart=cart,product=product)
+    print('Deleted Product ID:',product_id)
+
     cart_item.delete()
     return redirect('cart')
 
