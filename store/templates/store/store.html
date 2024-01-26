@@ -6,14 +6,19 @@
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
     <div class="container">
-        <h2 class="title-page">Our Store</h2>
+
+        {% if 'search' in request.path %}
+            <h2 class="title-page">Search Page</h2>
+            
+        {% else %}
+            <h2 class="title-page">Our Store</h2>
+        {% endif %}
+
         
     </div> <!-- container //  -->
     </section>
     <!-- ========================= SECTION INTRO END// ========================= -->
     
-
-
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
     <div class="container">
@@ -128,7 +133,10 @@
             </div>
     </header><!-- sect-heading -->
     
+
+
     <div class="row">
+        {% if products %}
         {% for product in products %}
         <div class="col-md-4">
             
@@ -153,6 +161,13 @@
             </figure>
         </div> <!-- col.// -->
         {% endfor %}
+        {% else %}
+        <div>
+        <h1> Sorry !! Nothing Found </h1> <br></br>
+        <a href="{% url 'store' %}"><button class="btn btn-primary center"> Continue Shopping </button></a>
+        </div>
+
+        {% endif %}
     </div> <!-- row end.// -->
     
     

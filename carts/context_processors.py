@@ -8,18 +8,15 @@ def counter(request):
     
     else:
         try:
-            cart = list(Cart.objects.filter(cart_id=_cart_id(request)).values_list('cart_id',flat=True))
-            print(cart[0])
-            cart_items = CartItem.objects.all().filter(cart=cart[0])
-            print(cart)
-            # cart_items = CartItem.objects.values('quantity')
+            cart = list(Cart.objects.filter(cart_id=_cart_id(request)).values_list('id',flat=True))
+            if cart:
+                # print(cart)
+                cart_items = CartItem.objects.filter(cart_id = cart[0]).values('quantity')
             
-            print(CartItem.objects.values('quantity'))
-
-            for cart_item in cart_items:
-                print(cart_item)
-                cart_count += CartItem.quantity
-                print(cart_count)
+                for cart_item in cart_items:
+                    cart_count += cart_item['quantity']
+            else:
+                pass
         except Cart.DoesNotExist:
             cart_count = 0
     return dict(cart_count=cart_count)
