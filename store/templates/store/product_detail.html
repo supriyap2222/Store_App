@@ -24,70 +24,94 @@
             </aside>
             <main class="col-md-6 border-left">
 
+    <form action="{% url 'add_cart' single_product.id %}" method="GET">
+      <article class="content-body">
+      
+      <h2 class="title">{{single_product.product_name}}</h2>
+      
+      <div class="rating-wrap my-3">
+          <ul class="rating-stars">
+              <li style="width:80%" class="stars-active">
+                  <img src="{{single_product.image.url}}" alt="">
+              </li>
+              <li>
+                  <img src="../images/icons/starts-disable.svg" alt="">
+              </li>
+          </ul>
+          <small class="label-rating text-muted">132 reviews</small>
+          <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
+      </div> <!-- rating-wrap.// -->
+      
+      <div class="mb-3"> 
+          <var class="price h4">Rs {{single_product.price}}</var> 
+          <span class="text-muted">/per piece </span> 
+      </div> 
+      
+      <p>{{single_product.description}}</p>
+      
+      <dl class="row">
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9">{{single_product.category.category_name}}-{{single_product.cp_code}}</dd>
+      
+        <dt class="col-sm-3">Delivery</dt>
+        <dd class="col-sm-9">Narayangarh,Gaidakot,Besisahar,Gorkha,Hetoda </dd>
+      </dl>
+      <hr>
 
-              <form action="{% url 'add_cart' single_product.id %}" method="GET">
-    <article class="content-body">
-    
-    <h2 class="title">{{single_product.product_name}}</h2>
-    
-    <div class="rating-wrap my-3">
-        <ul class="rating-stars">
-            <li style="width:80%" class="stars-active">
-                <img src="{{single_product.image.url}}" alt="">
-            </li>
-            <li>
-                <img src="../images/icons/starts-disable.svg" alt="">
-            </li>
-        </ul>
-        <small class="label-rating text-muted">132 reviews</small>
-        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
-    </div> <!-- rating-wrap.// -->
-    
-    <div class="mb-3"> 
-        <var class="price h4">Rs {{single_product.price}}</var> 
-        <span class="text-muted">/per piece </span> 
-    </div> 
-    
-    <p>{{single_product.description}}</p>
-    
-    <dl class="row">
-      <dt class="col-sm-3">Category</dt>
-      <dd class="col-sm-9">{{single_product.category.category_name}}-{{single_product.cp_code}}</dd>
-    
-      <dt class="col-sm-3">Delivery</dt>
-      <dd class="col-sm-9">Narayangarh,Gaidakot,Besisahar,Gorkha,Hetoda </dd>
-    </dl>
-    <hr>
-        {% if single_product.stock <= 0 %}
-          <h3 class="text-danger">Out of Stock</h3>
+      <div class='row'>
+        <div class='item-otion-select'>
+          <h6>Choose Color</h6>
+          <select name='color' class='form-control' >
+            <option value='' disabled selected>Select</option>
+            {% comment %} set.all will bring all the data from variation {% endcomment %}
+            {% for i in single_product.variation_set.colors %}
+            <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='item-otion-select'>
+          <h6>Select Size</h6> 
+          <select name='size' class='form-control'>
+            <option value='' disabled selected>Select</option>
+            {% for i in single_product.variation_set.sizes %}
+            <option value='{{i.variation_value | lower }}'>{{i.variation_value | capfirst}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
 
-        {% elif single_product.stock < 5 %}
-          <h6>Hurry Up! Only <b>{{single_product.stock}}</b> Left</h6> 
-          {% if in_cart %}
-          {% comment %} already added to cart {% endcomment %}
-          <a href="#" class="btn  btn-outline-success"> <span class="text">Added to cart</span> <i class="fas fa-check"></i>  </a>
-          <a href="{% url 'cart' %}" class="btn  btn-outline-primary"> <span class="text">View cart</span><i class="fas fa-eye"></i>  </a>
 
+      <hr>
+      <div>
+          {% if single_product.stock <= 0 %}
+            <h3 class="text-danger">Out of Stock</h3>
+
+          {% elif single_product.stock < 5 %}
+            <h6>Hurry Up! Only <b>{{single_product.stock}}</b> Left</h6> 
+            {% if in_cart %}
+            {% comment %} already added to cart {% endcomment %}
+            <a href="#" class="btn  btn-outline-success"> <span class="text">Added to cart</span> <i class="fas fa-check"></i>  </a>
+            <a href="{% url 'cart' %}" class="btn  btn-outline-primary"> <span class="text">View cart</span><i class="fas fa-eye"></i>  </a>
+
+            {% else %}
+            <a href="{% url 'add_cart' single_product.id %}" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+            {% endif %}
           {% else %}
-          <a href="{% url 'add_cart' single_product.id %}" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+            {% if in_cart %}
+            {% comment %} already added to cart {% endcomment %}
+            <a href="#" class="btn  btn-outline-success"> <span class="text">Added to cart</span> <i class="fas fa-check"></i>  </a>
+            <a href="{% url 'cart' %}" class="btn  btn-primary"> <span class="text">View cart</span> <i class="fas fa-eye"></i>  </a>
+
+            {% else %}
+            <button type='submit' class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </button>
+            {% endif %}
           {% endif %}
-        {% else %}
-          {% if in_cart %}
-          {% comment %} already added to cart {% endcomment %}
-          <a href="#" class="btn  btn-outline-success"> <span class="text">Added to cart</span> <i class="fas fa-check"></i>  </a>
-          <a href="{% url 'cart' %}" class="btn  btn-primary"> <span class="text">View cart</span> <i class="fas fa-eye"></i>  </a>
-
-          {% else %}
-          <button type='submit' class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </button>
-          {% endif %}
-        {% endif %}
-
-
-        </article> <!-- product-info-aside .// -->
-      </form>
-
-
-            </main> <!-- col.// -->
+      </div>
+          </article> <!-- product-info-aside .// -->
+        </form>
+          </main> <!-- col.// -->
         </div> <!-- row.// -->
     </div> <!-- card.// -->
     

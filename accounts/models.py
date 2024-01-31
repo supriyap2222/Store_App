@@ -17,8 +17,11 @@ class MyAccountManager(BaseUserManager):
             username = username,
             first_name = first_name,
             last_name = last_name,
+            password=password,
         )
-        user.set_password(password)
+        # user.set_password(password)
+        # user.set_password(password)
+        # user.password
         user.save(using=self._db)
         return user
     

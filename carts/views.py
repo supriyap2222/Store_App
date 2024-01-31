@@ -12,6 +12,14 @@ def _cart_id(request):
 
 
 def add_cart(request, product_id):
+    
+    color = request.POST.get('color')
+    print(color)
+    size = request.POST.get('size')
+    print(size)
+    return HttpResponse(color)
+    exit()
+    
     product     = Product.objects.get(id=product_id)  #get the product // product_id = single_product.id from product_detail.html page
     print('product id', product_id)
     try:
