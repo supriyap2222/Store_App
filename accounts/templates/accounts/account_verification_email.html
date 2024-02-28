@@ -1,0 +1,13 @@
+{% autoescape off %}
+
+{% comment %} 
+we are using autoescape because we have to render html inside this(safeset way-protection against cross site scripting)
+{% endcomment %}
+
+hiii  {{ user.first_name}},
+Please click on below link to confirm your registraion.
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+if you think its not you, please ignore this email!!!!
+
+{% endautoescape %}

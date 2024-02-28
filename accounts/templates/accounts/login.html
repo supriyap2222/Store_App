@@ -2,18 +2,25 @@
 
 {% block content %}
 
-
-<!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-conten padding-y" style="min-height:84vh">
 
+
+{% if request.GET.command == 'verification' %}
+
+<div class="container mx-auto text-center alert alert-info" role='alert' style="max-width: 1380px; margin-top:50px;">
+  Thank you !! Verification sent to your Email address [{{request.GET.email}}] 
+  <br><br>
+  Already verified? <a href="{% url 'login' %}">Login</a>
+</div>
+
+{% else %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
     <!-- ============================ COMPONENT LOGIN   ================================= -->
         <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
             {% include 'myapp/includes/alerts.html' %}
-
           <div class="card-body">
-          <h4 class="card-title mb-4">Sign in</h4>
-
-          
+          <h4 class="card-title mb-4">Sign in</h4>          
           <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
               <div class="form-group">
@@ -22,10 +29,8 @@
               <div class="form-group">
                 <input type="password" class="form-control" placeholder="Password" name='password' id='password'>
               </div> <!-- form-group// -->
-              
               <div class="form-group">
-                  <a href="#" class="float-right">Forgot password?</a> 
-               
+                  <a href="#" class="float-right">Forgot password?</a>                
               </div> <!-- form-group form-check .// -->
               <div class="form-group">
                   <button type="submit" class="btn btn-primary btn-block"> Login  </button>
@@ -37,12 +42,7 @@
          <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
          <br><br>
     <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
-    
-    
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
-    
-    
-    
-
+    {% endif %}
 {% endblock %}
